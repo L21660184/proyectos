@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicación de Notas</title>
+  <style>
+    /* Reseteo de márgenes y padding para todos los elementos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Estilos para el cuerpo de la aplicación */
+    body {
+      font-family: 'Arial', sans-serif; /* Tipo de fuente */
+      background-color: #f5f7fa; /* Color de fondo */
+      margin: 0;
+      padding: 20px; /* Espaciado interno */
+      display: flex; /* Usar flexbox para la alineación */
+      flex-direction: column; /* Dirección de los elementos en columna */
+      align-items: center; /* Centrar elementos horizontalmente */
+      height: 100vh; /* Altura completa de la ventana */
+      justify-content: center; /* Centrar verticalmente */
+      background: linear-gradient(145deg, #e6e9f0, #eef1f7); /* Gradiente de fondo */
+    }
+
+    /* Estilo para el encabezado principal */
+    h1 {
+      font-size: 3rem; /* Tamaño de fuente */
+      color: #333; /* Color del texto */
+      margin-bottom: 20px; /* Margen inferior */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra de texto */
+    }
+
+    /* Estilos para el formulario de notas */
+    #note-form {
+      display: flex; /* Usar flexbox para la alineación */
+      gap: 10px; /* Espaciado entre los elementos */
+      margin-bottom: 20px; /* Margen inferior */
+      width: 100%; /* Ancho completo */
+      max-width: 600px; /* Ancho máximo */
+    }
+
+    /* Estilo para el campo de entrada de notas */
+    #note-input {
+      flex: 1; /* Ocupa el espacio restante */
+      padding: 15px; /* Espaciado interno */
+      font-size: 18px; /* Tamaño de fuente */
+      border: none; /* Sin borde */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+      background-color: white; /* Color de fondo */
+    }
+
+    /* Estilos para los botones */
+    button {
+      padding: 15px 30px; /* Espaciado interno */
+      font-size: 18px; /* Tamaño de fuente */
+      background-color: #28a745; /* Color de fondo */
+      color: white; /* Color del texto */
+      border: none; /* Sin borde */
+      cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+      border-radius: 10px; /* Bordes redondeados */
+      transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto de transición */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+    }
+
+    /* Efecto hover para el botón */
+    button:hover {
+      background-color: #218838; /* Color de fondo al pasar el ratón */
+      transform: scale(1.05); /* Escalar ligeramente */
+    }
+
+    /* Estilos para la lista de notas */
+    #notes {
+      width: 100%; /* Ancho completo */
+      max-width: 600px; /* Ancho máximo */
+      list-style: none; /* Sin estilo de lista */
+      padding: 0; /* Sin espaciado interno */
+    }
+
+    /* Estilo para cada nota */
+    .note {
+      background-color: #fff; /* Color de fondo */
+      padding: 20px; /* Espaciado interno */
+      margin-bottom: 15px; /* Margen inferior */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+      display: flex; /* Usar flexbox para la alineación */
+      justify-content: space-between; /* Espacio entre los elementos */
+      align-items: center; /* Alinear verticalmente */
+      animation: fadeIn 0.5s ease; /* Animación de aparición */
+    }
+
+    /* Estilos para el botón de eliminar en la nota */
+    .note button {
+      background-color: #dc3545; /* Color de fondo */
+      border: none; /* Sin borde */
+      padding: 10px 15px; /* Espaciado interno */
+      cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+      color: white; /* Color del texto */
+      border-radius: 8px; /* Bordes redondeados */
+      transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto de transición */
+    }
+
+    /* Efecto hover para el botón de eliminar */
+    .note button:hover {
+      background-color: #c82333; /* Color de fondo al pasar el ratón */
+      transform: scale(1.05); /* Escalar ligeramente */
+    }
+
+    /* Animación para la aparición de las notas */
+    @keyframes fadeIn {
+      from {
+        opacity: 0; /* Comienza invisible */
+        transform: translateY(10px); /* Desplazado hacia abajo */
+      }
+      to {
+        opacity: 1; /* Termina visible */
+        transform: translateY(0); /* Sin desplazamiento */
+      }
+    }
+
+    /* Diseño responsivo */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem; /* Ajustar tamaño de fuente en dispositivos pequeños */
+      }
+
+      #note-input {
+        font-size: 16px; /* Ajustar tamaño de fuente en dispositivos pequeños */
+      }
+
+      button {
+        font-size: 16px; /* Ajustar tamaño de fuente en dispositivos pequeños */
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Aplicación de Notas</h1>
+  
+  <!-- Formulario para agregar nuevas notas -->
+  <form id="note-form" onsubmit="addNote(); return false;">
+    <input type="text" id="note-input" placeholder="Escribe tu nota aquí..." required>
+    <button type="submit">Agregar Nota</button>
+  </form>
+
+  <!-- Lista de notas -->
+  <ul id="notes"></ul>
+
+  <script>
+    // Referencias a los elementos del DOM
+    const notesList = document.getElementById('notes');
+    const noteInput = document.getElementById('note-input');
+
+    // Función para cargar las notas almacenadas en localStorage
+    function loadNotes() {
+      const notes = JSON.parse(localStorage.getItem('notes')) || []; // Obtener notas o crear un array vacío
+      notesList.innerHTML = '';  // Limpiar la lista de notas
+
+      // Iterar sobre las notas y crear elementos de lista
+      notes.forEach((note, index) => {
+        const noteElement = document.createElement('li');
+        noteElement.classList.add('note'); // Agregar clase a la nota
+        noteElement.innerHTML = `
+          ${note} 
+          <button onclick="deleteNote(${index})">Eliminar</button>
+        `;
+        notesList.appendChild(noteElement); // Agregar la nota a la lista
+      });
+    }
+
+    // Función para agregar una nueva nota
+    function addNote() {
+      const notes = JSON.parse(localStorage.getItem('notes')) || []; // Obtener notas
+      const newNote = noteInput.value; // Capturar el valor del campo de entrada
+      notes.push(newNote); // Agregar la nueva nota al array
+      localStorage.setItem('notes', JSON.stringify(notes)); // Guardar notas en localStorage
+      noteInput.value = ''; // Limpiar el campo de entrada
+      loadNotes(); // Actualizar la lista de notas
+    }
+
+    // Función para eliminar una nota por su índice
+    function deleteNote(index) {
+      const notes = JSON.parse(localStorage.getItem('notes')) || []; // Obtener notas
+      notes.splice(index, 1); // Eliminar la nota del array
+      localStorage.setItem('notes', JSON.stringify(notes)); // Guardar notas actualizadas en localStorage
+      loadNotes(); // Actualizar la lista de notas
+    }
+
+    // Cargar las notas cuando se abra la página
+    loadNotes();
+  </script>
+</body>
+</html>

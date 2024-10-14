@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es"> <!-- Define el tipo de documento como HTML5 y establece el idioma en español -->
+<head>
+    <meta charset="UTF-8"> <!-- Establece la codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que la página sea responsiva en dispositivos móviles -->
+    <title>Filtro de Tabla en Tiempo Real</title> <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <style>
+        /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente utilizada para el texto */
+            background-color: #f4f7fc; /* Color de fondo de la página */
+            padding: 50px; /* Espaciado alrededor del contenido */
+            text-align: center; /* Alineación centrada del texto */
+        }
+
+        /* Estilo del encabezado principal */
+        h1 {
+            color: #333; /* Color del texto */
+            margin-bottom: 30px; /* Margen inferior */
+            font-size: 36px; /* Tamaño de la fuente */
+            letter-spacing: 1.5px; /* Espaciado entre letras */
+            text-transform: uppercase; /* Transforma el texto a mayúsculas */
+        }
+
+        /* Estilos del cuadro de búsqueda */
+        input {
+            width: 60%; /* Ancho del cuadro de entrada */
+            padding: 15px; /* Espaciado interno */
+            font-size: 18px; /* Tamaño de la fuente */
+            margin-bottom: 30px; /* Margen inferior */
+            border: 2px solid #ccc; /* Color y grosor del borde */
+            border-radius: 10px; /* Esquinas redondeadas */
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra del cuadro de entrada */
+            transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out; /* Transición suave para el enfoque */
+        }
+
+        /* Estilos al enfocar el cuadro de entrada */
+        input:focus {
+            outline: none; /* Sin contorno por defecto */
+            box-shadow: 2px 2px 15px rgba(0, 128, 255, 0.5); /* Sombra más intensa al enfocar */
+            border: 2px solid #0080ff; /* Cambio de color del borde al enfocar */
+        }
+
+        /* Estilos de la tabla */
+        table {
+            width: 80%; /* Ancho de la tabla */
+            margin: 0 auto; /* Centrar la tabla */
+            border-collapse: collapse; /* Colapsar bordes adyacentes */
+            background-color: #ffffff; /* Color de fondo de la tabla */
+            border-radius: 15px; /* Esquinas redondeadas */
+            overflow: hidden; /* Ocultar bordes que sobresalgan */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra de la tabla */
+        }
+
+        /* Estilos de las celdas de encabezado y datos */
+        th, td {
+            padding: 20px; /* Espaciado interno de las celdas */
+            text-align: left; /* Alineación del texto a la izquierda */
+            border-bottom: 1px solid #ddd; /* Línea de separación entre filas */
+            font-size: 18px; /* Tamaño de la fuente en las celdas */
+        }
+
+        /* Estilos de la celda de encabezado */
+        th {
+            background-color: #0080ff; /* Color de fondo del encabezado */
+            color: white; /* Color del texto del encabezado */
+            text-transform: uppercase; /* Texto en mayúsculas */
+            letter-spacing: 1px; /* Espaciado entre letras */
+        }
+
+        /* Estilos para las filas de la tabla */
+        tr {
+            transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+        }
+
+        /* Cambio de color de fondo al pasar el mouse sobre una fila */
+        tr:hover {
+            background-color: #f1f1f1; /* Color de fondo al pasar el mouse */
+        }
+
+        td {
+            color: #555; /* Color del texto en las celdas */
+        }
+
+        /* Estilo para hacer que las filas entren con animación */
+        @keyframes fadeIn {
+            from {
+                opacity: 0; /* Comienza invisible */
+                transform: translateY(10px); /* Se mueve un poco hacia abajo */
+            }
+            to {
+                opacity: 1; /* Se vuelve visible */
+                transform: translateY(0); /* Regresa a su posición original */
+            }
+        }
+
+        tr {
+            animation: fadeIn 0.5s ease forwards; /* Aplica la animación al cargar la fila */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Filtro de Tabla en Tiempo Real</h1> <!-- Título de la página -->
+
+    <!-- Cuadro de búsqueda -->
+    <input type="text" id="searchInput" placeholder="Buscar por nombre, edad o ciudad..." onkeyup="filtrarTabla()"> 
+    <!-- Cuadro de entrada para buscar, activa la función filtrarTabla() al escribir -->
+
+    <!-- Tabla para mostrar los datos -->
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>Nombre</th> <!-- Encabezado de la columna Nombre -->
+                <th>Edad</th> <!-- Encabezado de la columna Edad -->
+                <th>Ciudad</th> <!-- Encabezado de la columna Ciudad -->
+            </tr>
+        </thead>
+        <tbody id="tablaBody">
+            <!-- Los datos se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array con los datos que se mostrarán en la tabla
+        const personas = [
+            { nombre: "Juan Pérez", edad: 25, ciudad: "Madrid" }, // Objeto con datos de persona
+            { nombre: "Ana López", edad: 30, ciudad: "Barcelona" },
+            { nombre: "Carlos García", edad: 35, ciudad: "Sevilla" },
+            { nombre: "Luisa Fernández", edad: 28, ciudad: "Valencia" },
+            { nombre: "Mario Hernández", edad: 22, ciudad: "Bilbao" },
+            { nombre: "Sofía Martínez", edad: 26, ciudad: "Granada" },
+        ];
+
+        // Función para mostrar los datos iniciales en la tabla
+        function mostrarDatos() {
+            const tablaBody = document.getElementById('tablaBody'); // Obtiene el cuerpo de la tabla
+            tablaBody.innerHTML = ''; // Limpia la tabla antes de agregar los datos
+
+            // Recorre el array de personas y crea filas en la tabla
+            personas.forEach(persona => {
+                const fila = `<tr>
+                                <td>${persona.nombre}</td>
+                                <td>${persona.edad}</td>
+                                <td>${persona.ciudad}</td>
+                              </tr>`;
+                tablaBody.innerHTML += fila; // Añade las filas a la tabla
+            });
+        }
+
+        // Función para filtrar los datos de la tabla en tiempo real
+        function filtrarTabla() {
+            const input = document.getElementById('searchInput').value.toLowerCase(); // Obtiene el valor del cuadro de búsqueda
+            const tablaBody = document.getElementById('tablaBody'); // Obtiene el cuerpo de la tabla
+            tablaBody.innerHTML = ''; // Limpia la tabla antes de agregar los datos filtrados
+
+            // Filtra las personas según el texto ingresado
+            const filtrado = personas.filter(persona => {
+                return persona.nombre.toLowerCase().includes(input) || // Filtra por nombre
+                       persona.edad.toString().includes(input) || // Filtra por edad
+                       persona.ciudad.toLowerCase().includes(input); // Filtra por ciudad
+            });
+
+            // Muestra los resultados filtrados en la tabla
+            filtrado.forEach(persona => {
+                const fila = `<tr>
+                                <td>${persona.nombre}</td>
+                                <td>${persona.edad}</td>
+                                <td>${persona.ciudad}</td>
+                              </tr>`;
+                tablaBody.innerHTML += fila; // Añade las filas filtradas a la tabla
+            });
+        }
+
+        // Mostrar los datos iniciales al cargar la página
+        window.onload = mostrarDatos; // Llama a mostrarDatos() al cargar la página
+    </script>
+
+</body>
+</html>

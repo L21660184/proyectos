@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Proyectos - Silent Hill Style</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente del texto */
+            background-color: #1d1f21; /* Oscuro y opresivo */
+            color: #d3d3d3; /* Gris claro desgastado */
+        }
+            
+         /* Estilos para el encabezado de la página */
+        header {
+            background-color: #2c3a3a; /* Verde oscuro grisáceo */
+            padding: 20px;  /* Espaciado interno */
+            text-align: center;   /* Centra el contenido del encabezado */
+            border-bottom: 5px solid #5b584f; /* Detalle oxidado */
+        }
+             /* Estilos para el título principal de la página */
+        h1 {
+            color: #c4c7c8; /* Gris pálido */
+            font-size: 2.5rem; /* Tamaño de la fuente del título */
+            text-shadow: 2px 2px 5px #000; /* Sombras oscuras */
+        }
+
+        .gallery {
+            display: flex;/* Utiliza flexbox para la disposición de las cartas */
+            flex-wrap: wrap; /* Permite que las cartas se envuelvan en múltiples líneas */
+            justify-content: center; /* Centra las cartas horizontalmente */
+            gap: 20px; /* Espacio entre las cartas */
+            padding: 40px;  /* Espaciado interno */
+        }
+             /* Estilos para cada carta del proyecto */
+        .card {
+            background-color: #2e3134; /* Gris oscuro */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);  /* Sombra de la carta */
+            overflow: hidden; /* Oculta contenido que se desborde */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transiciones suaves para transformaciones y sombras */
+            width: 300px; /* Ancho de la carta */
+            text-align: center; /* Centra el texto dentro de la carta */
+        }
+        /* Estilos para las imágenes dentro de la carta */
+         .card img {
+            width: 100%; /* Hace que la imagen ocupe el 100% del ancho de la carta */
+            height: 200px; /* Altura fija de la imagen */
+            object-fit: cover; /* Asegura que la imagen cubra el área asignada */
+            border-bottom: 5px solid #5b584f; /* Borde inferior con un color oxidado */
+        }
+ /* Estilos para el contenido de la carta */
+        .card-content {
+            padding: 20px; /* Espaciado interno del contenido */
+            background-color: #3b3e42; /* Color de fondo del contenido */
+            color: #d3d3d3; /* Color del texto */
+        }
+
+ /* Estilos para los títulos dentro de cada carta */
+        .card h2 {
+            font-size: 1.5rem; /* Tamaño de la fuente del título de la carta */
+            margin-bottom: 10px; /* Espaciado inferior */
+            color: #9aa0a2; /* Color del título */
+            text-shadow: 1px 1px 3px #000; /* Sombra para el texto del título */
+        }
+          /* Estilos para los párrafos dentro de cada carta */
+        .card p {
+            font-size: 1rem; /* Tamaño de la fuente del párrafo */
+            margin-bottom: 15px; /* Espaciado inferior */
+            color: #b0b3b5; /* Color del texto del párrafo */
+        }
+
+  /* Estilos para los botones */
+        .btn {
+            text-decoration: none; /* Sin subrayado */
+            color: #fff; /* Color del texto del botón */
+            background-color: #5b584f; /* Color de fondo del botón */
+            padding: 10px 15px; /* Espaciado interno del botón */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves para el fondo y transformaciones */
+        }
+
+         /* Estilos para el efecto hover en los botones */
+        .btn:hover {
+            background-color: #6f645a; /* Cambia el color de fondo al pasar el mouse */
+            transform: scale(1.05); /* Aumenta el tamaño del botón al pasar el mouse */
+        }
+         /* Efecto hover en las cartas */
+        .card:hover {
+            transform: scale(1.05); /* Aumenta el tamaño de la carta al pasar el mouse */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6); /* Aumenta la sombra al pasar el mouse */
+        }
+     /* Estilos responsivos para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .gallery {
+                flex-direction: column; /* Cambia la dirección de las cartas a columna */
+                align-items: center; /* Centra las cartas verticalmente */
+            }
+
+            .card {
+                width: 90%; /* Ancho de la carta en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Galería de Proyectos</h1>
+    </header>
+
+    <section class="gallery">
+        <!-- Carta del proyecto 1 -->
+        <div class="card">
+            <img src="https://i.ytimg.com/vi/pTVVUERSBNw/maxresdefault.jpg" alt="Proyecto 1">
+            <div class="card-content">
+                <h2>Actividad 1</h2>
+                <p>No me gusta programar!</p>
+                <a href="Actividad 1.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 2 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1959/1959768.png" alt="Proyecto 2">
+            <div class="card-content">
+                <h2>Actividad 2</h2>
+                <p>Boton cambia colores.</p>
+                <a href="Boton colores.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 3 -->
+        <div class="card">
+            <img src="https://img.freepik.com/vector-premium/contador-numeros-vector-mecanico_268834-485.jpg" alt="Proyecto 3">
+            <div class="card-content">
+                <h2>Actividad 3</h2>
+                <p>Contador.</p>
+                <a href="contador.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 4 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.freepik.com/256/10485/10485121.png?semt=ais_hybrid" alt="Proyecto 4">
+            <div class="card-content">
+                <h2>Actividad 4</h2>
+                <p>Formulario.</p>
+                <a href="formulario.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 5 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/6831/6831874.png" alt="Proyecto 5">
+            <div class="card-content">
+                <h2>Actividad 5</h2>
+                <p>Juego de piedra, papel o tijera.</p>
+                <a href="juego.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 6 -->
+        <div class="card">
+            <img src="https://thumbs.dreamstime.com/b/icono-de-l%C3%ADnea-negra-para-suma-total-y-n%C3%BAmero-igual-agregar-232960332.jpg" alt="Proyecto 6">
+            <div class="card-content">
+                <h2>Actividad 6</h2>
+                <p>Suma de numeros.</p>
+                <a href="suma de numeros.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 7 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1834/1834048.png" alt="Proyecto 7">
+            <div class="card-content">
+                <h2>Actividad 7</h2>
+                <p>Tablas.</p>
+                <a href="tablas.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 8 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3003/3003126.png" alt="Proyecto 8">
+            <div class="card-content">
+                <h2>Actividad 8</h2>
+                <p>Temporizador.</p>
+                <a href="temporizador.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 9 -->
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV2G5KmUBkEAHhOJ2UJgJydrXki6n2tAmZlCnQ-9EUkyCqdNGvnIdRL1Q-1X6kQJM67Pk&usqp=CAU" alt="Proyecto 9">
+            <div class="card-content">
+                <h2>Actividad 9</h2>
+                <p>Agenda ("to do list").</p>
+                <a href="to do list.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 10 -->
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1719/1719943.png" alt="Proyecto 10">
+            <div class="card-content">
+                <h2>Actividad 10</h2>
+                <p>Cronometro.</p>
+                <a href="cronometro.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <img src="https://w7.pngwing.com/pngs/553/526/png-transparent-notepad-computer-icons-others-angle-text-rectangle-thumbnail.png" alt="Proyecto 11">
+            <div class="card-content">
+                <h2>Actividad 11</h2>
+                <p>Notas (Localstorage).</p>
+                <a href="localstorage.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+
+        <!-- Carta del proyecto 12 -->
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuhI_F84VbVW5bC_KYf53QnZr0LevZi19iGQ&s" alt="Proyecto 12">
+            <div class="card-content">
+                <h2>Actividad 12</h2>
+                <p>Calculadora.</p>
+                <a href="calculadora.html" class="btn">Ver Proyecto</a>
+            </div>
+        </div>
+        
+    </section>
+</body>
+</html>
+
+

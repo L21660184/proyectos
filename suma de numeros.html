@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Habilita un diseño responsivo -->
+    <title>Formulario de Suma</title> <!-- Título de la página -->
+    <style>
+        /* Estilo general del cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif; /* Tipo de fuente */
+            background-color: #f5f7fa; /* Color de fondo */
+            display: flex; /* Usar flexbox para centrar contenido */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Altura completa de la ventana */
+            margin: 0; /* Eliminar márgenes predeterminados */
+        }
+
+        /* Estilo del contenedor del formulario */
+        .container {
+            background-color: #ffffff; /* Color de fondo del contenedor */
+            padding: 40px; /* Espaciado interno */
+            border-radius: 20px; /* Bordes redondeados */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra */
+            max-width: 400px; /* Ancho máximo del contenedor */
+            width: 100%; /* Ancho completo */
+            text-align: center; /* Centrar texto */
+        }
+
+        /* Estilo para el encabezado del formulario */
+        h2 {
+            color: #333; /* Color del texto */
+            font-size: 32px; /* Tamaño de fuente */
+            margin-bottom: 20px; /* Margen inferior */
+            letter-spacing: 1.5px; /* Espaciado entre letras */
+        }
+
+        /* Estilo para las etiquetas del formulario */
+        label {
+            font-size: 18px; /* Tamaño de fuente */
+            color: #333; /* Color del texto */
+            display: block; /* Mostrar como bloque */
+            margin-bottom: 10px; /* Margen inferior */
+            text-align: left; /* Alinear texto a la izquierda */
+        }
+
+        /* Estilo para los campos de entrada de tipo número y texto */
+        input[type="number"], input[type="text"] {
+            width: 100%; /* Ancho completo */
+            padding: 10px; /* Espaciado interno */
+            margin-bottom: 20px; /* Margen inferior */
+            border: 1px solid #ccc; /* Borde */
+            border-radius: 8px; /* Bordes redondeados */
+            font-size: 18px; /* Tamaño de fuente */
+            transition: border 0.3s ease; /* Efecto de transición al enfocar */
+        }
+
+        /* Estilo al enfocar el campo de entrada */
+        input[type="number"]:focus, input[type="text"]:focus {
+            border-color: #00bfff; /* Color del borde al enfocar */
+            outline: none; /* Sin contorno */
+        }
+
+        /* Estilo para el botón de suma */
+        input[type="button"] {
+            font-size: 20px; /* Tamaño de fuente */
+            padding: 12px 20px; /* Espaciado interno */
+            background-color: #00bfff; /* Color de fondo */
+            color: white; /* Color del texto */
+            border: none; /* Sin borde */
+            border-radius: 8px; /* Bordes redondeados */
+            cursor: pointer; /* Cambiar cursor al pasar el ratón */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Efectos de transición */
+        }
+
+        /* Efecto hover para el botón */
+        input[type="button"]:hover {
+            background-color: #1e90ff; /* Color de fondo al pasar el ratón */
+            transform: translateY(-2px); /* Levantar ligeramente el botón */
+        }
+
+        /* Estilo para el campo de resultado en modo solo lectura */
+        input[readonly] {
+            background-color: #e9e9e9; /* Color de fondo */
+            cursor: not-allowed; /* Cambiar cursor a no permitido */
+        }
+
+        /* Animaciones */
+        input[type="text"] {
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Efectos de transición */
+        }
+
+        /* Estilo al enfocar el campo de texto */
+        input[type="text"]:focus {
+            background-color: #f0f8ff; /* Color de fondo al enfocar */
+        }
+
+        /* Estilo para el campo de entrada de tipo número */
+        input[type="number"] {
+            transition: box-shadow 0.3s ease; /* Efecto de transición */
+        }
+
+        /* Efecto hover para el campo de número */
+        input[type="number"]:hover {
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.3); /* Sombra al pasar el ratón */
+        }
+
+        /* Animación de aparición del contenedor */
+        .container {
+            animation: fadeIn 1s ease-out; /* Animación de aparición */
+        }
+
+        /* Definición de la animación de aparición */
+        @keyframes fadeIn {
+            from {
+                opacity: 0; /* Comienza invisible */
+                transform: translateY(20px); /* Desplazado hacia abajo */
+            }
+            to {
+                opacity: 1; /* Termina visible */
+                transform: translateY(0); /* Sin desplazamiento */
+            }
+        }
+    </style>
+    <script>
+        // Función para sumar los valores de los campos de entrada
+        function sumar() {
+            // Obtener los valores de las entradas churpia1 y churpia2
+            var num1 = parseFloat(document.getElementById("churpia1").value); // Convertir a número
+            var num2 = parseFloat(document.getElementById("churpia2").value); // Convertir a número
+            
+            // Calcular la suma de num1 y num2
+            var resultado = num1 + num2;
+            
+            // Mostrar el resultado en el campo caquita
+            document.getElementById("caquita").value = resultado; // Asignar el resultado al campo de texto
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container"> <!-- Contenedor principal del formulario -->
+        <h2>Formulario de Suma</h2> <!-- Título del formulario -->
+        
+        <form> <!-- Inicio del formulario -->
+            <label for="churpia1">Número 1:</label> <!-- Etiqueta para el primer número -->
+            <input type="number" id="churpia1" name="churpia1"> <!-- Campo de entrada para el primer número -->
+            
+            <label for="churpia2">Número 2:</label> <!-- Etiqueta para el segundo número -->
+            <input type="number" id="churpia2" name="churpia2"> <!-- Campo de entrada para el segundo número -->
+            
+            <input type="button" value="Sumar" onclick="sumar()"> <!-- Botón para realizar la suma -->
+            
+            <label for="caquita">Resultado:</label> <!-- Etiqueta para mostrar el resultado -->
+            <input type="text" id="caquita" name="caquita" readonly> <!-- Campo de entrada para mostrar el resultado, solo lectura -->
+        </form> <!-- Fin del formulario -->
+    </div> <!-- Fin del contenedor principal -->
+
+</body>
+</html>

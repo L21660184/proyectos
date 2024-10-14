@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Define el conjunto de caracteres y la configuración de la vista para dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Calculadora Básica</title>
+    
+    <style>
+        /* Estilos generales para el cuerpo de la página */
+        body {
+            margin: 0; /* Sin márgenes */
+            padding: 0; /* Sin padding */
+            display: flex; /* Utiliza flexbox para centrar la calculadora */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura de la ventana del navegador */
+            background: linear-gradient(135deg, #667eea, #764ba2); /* Fondo degradado */
+            font-family: 'Arial', sans-serif; /* Fuente del texto */
+        }
+
+        /* Estilos para la calculadora */
+        .calculator {
+            background-color: #fff; /* Fondo blanco */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 20px; /* Bordes redondeados */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+            width: 320px; /* Ancho de la calculadora */
+        }
+
+        /* Estilos para la pantalla de la calculadora */
+        .screen {
+            width: 100%; /* Ancho completo */
+            background-color: #333; /* Fondo oscuro */
+            color: #fff; /* Color del texto */
+            text-align: right; /* Alineación del texto a la derecha */
+            font-size: 2.5rem; /* Tamaño de la fuente */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px; /* Espaciado interno */
+            box-sizing: border-box; /* Incluye padding y bordes en el tamaño total */
+            margin-bottom: 20px; /* Espacio inferior */
+            transition: all 0.2s ease-in-out; /* Transición suave */
+        }
+
+        /* Estilo para quitar el contorno al enfocarse en la pantalla */
+        .screen:focus {
+            outline: none; /* Sin contorno */
+        }
+
+        /* Estilos para el contenedor de botones */
+        .buttons {
+            display: grid; /* Utiliza un grid para la disposición de botones */
+            grid-template-columns: repeat(4, 1fr); /* Cuatro columnas iguales */
+            gap: 10px; /* Espacio entre botones */
+        }
+
+        /* Estilos para los botones */
+        button {
+            background-color: #764ba2; /* Color de fondo del botón */
+            border: none; /* Sin borde */
+            color: #fff; /* Color del texto */
+            font-size: 1.5rem; /* Tamaño de la fuente */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cambia el cursor al pasar el mouse */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+        }
+
+        /* Efecto hover en los botones */
+        button:hover {
+            background-color: #667eea; /* Cambia el color al pasar el mouse */
+            transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+        }
+
+        /* Efecto al presionar el botón */
+        button:active {
+            background-color: #543c9c; /* Cambia el color al hacer clic */
+        }
+
+        /* Estilos específicos para el botón de igual */
+        .equal {
+            background-color: #47c784; /* Color de fondo del botón de igual */
+            grid-column: span 2; /* Ocupa dos columnas */
+        }
+
+        /* Efecto hover en el botón de igual */
+        .equal:hover {
+            background-color: #3bb573; /* Cambia el color al pasar el mouse */
+        }
+
+        /* Efecto al presionar el botón de igual */
+        .equal:active {
+            background-color: #34a06d; /* Cambia el color al hacer clic */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor principal de la calculadora -->
+    <div class="calculator">
+        <!-- Pantalla de la calculadora, deshabilitada para evitar la edición manual -->
+        <input type="text" id="screen" class="screen" disabled>
+
+        <!-- Contenedor para los botones de la calculadora -->
+        <div class="buttons">
+            <button onclick="clearScreen()">C</button> <!-- Botón de limpiar -->
+            <button onclick="backspace()">⌫</button> <!-- Botón de retroceso -->
+            <button onclick="appendOperator('/')">/</button> <!-- Botón de división -->
+            <button onclick="appendOperator('*')">×</button> <!-- Botón de multiplicación -->
+
+            <button onclick="appendNumber(7)">7</button> <!-- Botón para el número 7 -->
+            <button onclick="appendNumber(8)">8</button> <!-- Botón para el número 8 -->
+            <button onclick="appendNumber(9)">9</button> <!-- Botón para el número 9 -->
+            <button onclick="appendOperator('-')">-</button> <!-- Botón de resta -->
+
+            <button onclick="appendNumber(4)">4</button> <!-- Botón para el número 4 -->
+            <button onclick="appendNumber(5)">5</button> <!-- Botón para el número 5 -->
+            <button onclick="appendNumber(6)">6</button> <!-- Botón para el número 6 -->
+            <button onclick="appendOperator('+')">+</button> <!-- Botón de suma -->
+
+            <button onclick="appendNumber(1)">1</button> <!-- Botón para el número 1 -->
+            <button onclick="appendNumber(2)">2</button> <!-- Botón para el número 2 -->
+            <button onclick="appendNumber(3)">3</button> <!-- Botón para el número 3 -->
+            <button class="equal" onclick="calculate()">=</button> <!-- Botón de igual -->
+
+            <button onclick="appendNumber(0)">0</button> <!-- Botón para el número 0 -->
+            <button onclick="appendOperator('.')">.</button> <!-- Botón de punto decimal -->
+        </div>
+    </div>
+
+    <script>
+        // Obtiene la pantalla de la calculadora
+        let screen = document.getElementById("screen");
+        let currentInput = ""; // Variable para almacenar la entrada actual
+
+        // Función para añadir un número a la entrada
+        function appendNumber(number) {
+            currentInput += number; // Añade el número a la entrada actual
+            updateScreen(); // Actualiza la pantalla
+        }
+
+        // Función para añadir un operador a la entrada
+        function appendOperator(operator) {
+            // Permite agregar un punto decimal solo si la entrada está vacía
+            if (currentInput.length === 0 && operator === '.') {
+                currentInput = '0.'; // Si no hay entrada, empieza con '0.'
+            } else if (!endsWithOperator()) {
+                currentInput += operator; // Añade el operador a la entrada
+            }
+            updateScreen(); // Actualiza la pantalla
+        }
+
+        // Función para verificar si la entrada termina con un operador
+        function endsWithOperator() {
+            return /[+\-*/.]$/.test(currentInput); // Verifica si el último carácter es un operador
+        }
+
+        // Función para limpiar la pantalla
+        function clearScreen() {
+            currentInput = ""; // Resetea la entrada actual
+            updateScreen(); // Actualiza la pantalla
+        }
+
+        // Función para eliminar el último carácter de la entrada
+        function backspace() {
+            currentInput = currentInput.slice(0, -1); // Elimina el último carácter
+            updateScreen(); // Actualiza la pantalla
+        }
+
+        // Función para calcular la expresión actual
+        function calculate() {
+            try {
+                currentInput = eval(currentInput).toString(); // Evalúa la expresión y convierte a string
+                updateScreen(); // Actualiza la pantalla
+            } catch (error) {
+                currentInput = "Error"; // Si hay un error, muestra "Error"
+                updateScreen(); // Actualiza la pantalla
+            }
+        }
+
+        // Función para actualizar la pantalla de la calculadora
+        function updateScreen() {
+            screen.value = currentInput; // Actualiza el valor de la pantalla
+        }
+    </script>
+
+</body>
+</html>
+

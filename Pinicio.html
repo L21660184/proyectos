@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Innovatech Projects</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            animation: backgroundAnimation 10s ease infinite alternate;
+        }
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(to right, #00c6ff, #0072ff); }
+            50% { background: linear-gradient(to right, #6a11cb, #2575fc); }
+            100% { background: linear-gradient(to right, #00c6ff, #0072ff); }
+        }
+        nav {
+            background-color: rgba(0, 123, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+        }
+        nav a {
+            color: #fff !important;
+        }
+        nav .navbar-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 10px;
+        }
+        nav .navbar-toggler {
+            background-color: #fff;
+            border: none;
+        }
+        section {
+            padding: 100px 20px;
+            margin-top: 70px;
+        }
+        h1 {
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .content-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            animation: zoomIn 0.7s ease-out;
+        }
+        .content-block:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        .content-block img {
+            width: 50%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in;
+        }
+        .content-block:hover img {
+            filter: brightness(1.2);
+        }
+        .content-text {
+            width: 50%;
+            padding: 20px;
+            color: #333;
+            animation: slideInLeft 1s ease-in-out;
+        }
+        .content-text:hover {
+            color: #007bff;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+        }
+        .content-text h2 {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .content-text p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        @media (max-width: 768px) {
+            .content-block {
+                flex-direction: column;
+            }
+            .content-block img, .content-text {
+                width: 100%;
+            }
+            .content-text {
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <span class="navbar-brand">Innovatech Projects</span>
+            <button class="navbar-toggler" type="button">
+                <span>☰</span>
+            </button>
+            <div class="navbar-nav">
+                <a class="nav-link" href="Pinicio.html">Inicio</a>
+                <a class="nav-link" href="servicios.html">Servicios</a>
+                <a class="nav-link" href="catalogo.html">Galería</a>
+                <a class="nav-link" href="sobre-mi.html">Sobre mí</a>
+                <a class="nav-link" href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Introducción -->
+    <section id="inicio">
+        <div class="container text-center">
+            <h1>Bienvenido a Innovatech Projects</h1>
+            <p>En Innovatech Projects, nos dedicamos a ofrecer soluciones innovadoras en el campo de la tecnología y el diseño. Nuestro objetivo es transformar la manera en que las empresas interactúan con la tecnología, brindando servicios que abarcan desde la consultoría tecnológica hasta el desarrollo de soluciones personalizadas.</p>
+        </div>
+
+        <!-- Bloques con Imagenes y Texto Alternados -->
+        <div class="container">
+            <div class="content-block">
+                <img src="https://uv.cl/templates/yootheme/cache/89/Feria%20%205%20de%2018-89503eea.jpeg" alt="Feria Tecnológica">
+                <div class="content-text">
+                    <h2>Feria Tecnológica</h2>
+                    <p>Asistimos a ferias tecnológicas donde mostramos nuestras últimas innovaciones y conectamos con otros profesionales del sector. En este evento, intercambiamos ideas y exploramos nuevas oportunidades de colaboración.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-text">
+                    <h2>Proyectos Universitarios</h2>
+                    <p>Estamos comprometidos con el fomento de la innovación entre los jóvenes. A través de diversas iniciativas, apoyamos proyectos universitarios que buscan soluciones tecnológicas creativas y efectivas para problemas reales.</p>
+                </div>
+                <img src="https://unciencia.unc.edu.ar/wp-content/blogs.dir/4/files/sites/4/2014/11/los-proyectos-universitarios-innovadores-adquieren-protagonismo.jpg" alt="Proyectos Universitarios">
+            </div>
+
+            <div class="content-block">
+                <img src="https://stakeholders.com.pe/wp-content/uploads/2023/07/foto-bobelto-1-scaled.jpg" alt="Innovación Tecnológica">
+                <div class="content-text">
+                    <h2>Innovación Tecnológica</h2>
+                    <p>Nos enfocamos en el desarrollo de tecnología innovadora que permite a las empresas mejorar su eficiencia y competitividad en el mercado actual. Nuestra misión es hacer que la tecnología esté al alcance de todos.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-text">
+                    <h2>Salud y Tecnología</h2>
+                    <p>Exploramos la intersección entre la salud y la tecnología, desarrollando soluciones que mejoran la atención médica y la calidad de vida de las personas. Estamos dedicados a la creación de herramientas que apoyen a los profesionales de la salud.</p>
+                </div>
+                <img src="https://gacetamedica.com/wp-content/uploads/2023/02/salud-y-tecnologia-1300745916-1068x601.jpg" alt="Salud y Tecnología">
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

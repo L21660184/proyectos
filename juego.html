@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Definición de la codificación de caracteres y viewport para una correcta visualización en dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Piedra, Papel o Tijera</title> <!-- Título de la página -->
+
+    <style>
+        /* Estilos para el cuerpo del documento */
+        body {
+            font-family: 'Arial', sans-serif; /* Tipo de letra */
+            text-align: center; /* Alinear texto al centro */
+            background-color: #f5f7fa; /* Color de fondo */
+            padding: 50px; /* Espaciado interno */
+            display: flex; /* Usar flexbox para centrar el contenido */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Altura del viewport */
+        }
+
+        /* Estilos para el contenedor del juego */
+        .container {
+            background-color: #ffffff; /* Color de fondo del contenedor */
+            padding: 40px; /* Espaciado interno */
+            border-radius: 20px; /* Bordes redondeados */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
+            max-width: 500px; /* Ancho máximo */
+            width: 100%; /* Ancho completo */
+        }
+
+        /* Estilos para el encabezado principal */
+        h1 {
+            color: #333; /* Color del texto */
+            font-size: 40px; /* Tamaño de fuente */
+            margin-bottom: 20px; /* Margen inferior */
+            letter-spacing: 2px; /* Espaciado entre letras */
+        }
+
+        /* Estilos para los subtítulos */
+        h3 {
+            font-size: 24px; /* Tamaño de fuente */
+            color: #333; /* Color del texto */
+            margin: 20px 0; /* Margen superior e inferior */
+        }
+
+        /* Estilos para las opciones del juego */
+        .opciones {
+            display: flex; /* Usar flexbox */
+            justify-content: center; /* Centrar horizontalmente */
+            gap: 20px; /* Espaciado entre opciones */
+            margin-top: 20px; /* Margen superior */
+        }
+
+        /* Estilos para las opciones individuales */
+        .opciones div {
+            transition: transform 0.3s; /* Transición suave al cambiar tamaño */
+        }
+
+        /* Estilos al pasar el cursor sobre las opciones */
+        .opciones div:hover {
+            transform: scale(1.1); /* Aumentar el tamaño al pasar el cursor */
+        }
+
+        /* Estilos para el botón de inicio */
+        button {
+            font-size: 20px; /* Tamaño de fuente */
+            padding: 10px 20px; /* Espaciado interno */
+            margin-top: 20px; /* Margen superior */
+            cursor: pointer; /* Cambiar cursor a puntero */
+            border: none; /* Sin borde */
+            border-radius: 8px; /* Bordes redondeados */
+            background-color: #00bfff; /* Color de fondo */
+            color: white; /* Color del texto */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+        }
+
+        /* Estilos al pasar el cursor sobre el botón */
+        button:hover {
+            background-color: #1e90ff; /* Cambiar color de fondo */
+            transform: translateY(-2px); /* Mover ligeramente hacia arriba */
+        }
+
+        /* Estilos para las imágenes de las opciones */
+        .opciones img {
+            width: 100px; /* Ancho de la imagen */
+            height: 100px; /* Altura de la imagen */
+            cursor: pointer; /* Cambiar cursor a puntero */
+            transition: transform 0.3s ease; /* Transición suave al cambiar tamaño */
+        }
+
+        /* Estilos al pasar el cursor sobre las imágenes */
+        .opciones img:hover {
+            transform: scale(1.2); /* Aumentar el tamaño al pasar el cursor */
+        }
+
+        /* Estilos para el resultado del juego */
+        #resultado {
+            font-size: 26px; /* Tamaño de fuente */
+            margin-top: 30px; /* Margen superior */
+            color: #0066cc; /* Color del texto */
+            transition: color 0.3s ease; /* Transición suave para el color */
+        }
+
+        /* Estilos para el temporizador */
+        #temporizador {
+            font-size: 28px; /* Tamaño de fuente */
+            color: #ff4500; /* Color del texto */
+            margin-top: 20px; /* Margen superior */
+            transition: color 0.3s ease; /* Transición suave para el color */
+        }
+
+        /* Animación del temporizador */
+        #temporizador {
+            animation: blink 1s infinite; /* Aplicar animación de parpadeo */
+        }
+
+        /* Definición de la animación de parpadeo */
+        @keyframes blink {
+            0% {
+                opacity: 1; /* Opacidad completa */
+            }
+            50% {
+                opacity: 0.5; /* Opacidad media */
+            }
+            100% {
+                opacity: 1; /* Regresar a opacidad completa */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> <!-- Contenedor principal del juego -->
+        <h1>Piedra, Papel o Tijera</h1> <!-- Título del juego -->
+
+        <h3 id="instrucciones">Elige tu opción antes de que el temporizador llegue a 0:</h3> <!-- Instrucciones del juego -->
+
+        <div id="temporizador">5</div> <!-- Temporizador inicial -->
+
+        <!-- Opciones visuales para piedra, papel o tijera -->
+        <div class="opciones">
+            <div>
+                <img src="https://img.icons8.com/color/100/rock.png" alt="Piedra" onclick="elegir('piedra')"> <!-- Opción de piedra -->
+                <h3>Piedra</h3>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/color/100/paper.png" alt="Papel" onclick="elegir('papel')"> <!-- Opción de papel -->
+                <h3>Papel</h3>
+            </div>
+            <div>
+                <img src="https://img.icons8.com/color/100/scissors.png" alt="Tijera" onclick="elegir('tijera')"> <!-- Opción de tijera -->
+                <h3>Tijera</h3>
+            </div>
+        </div>
+
+        <h3 id="resultado"></h3> <!-- Resultado del juego -->
+    </div>
+
+    <script>
+        let tiempoRestante = 5; // Tiempo restante en segundos
+        let temporizador; // Variable para el temporizador
+        let eleccionUsuario = null; // Elección del usuario
+        const opciones = ['piedra', 'papel', 'tijera']; // Opciones del juego
+
+        // Función para iniciar el temporizador
+        function iniciarTemporizador() {
+            document.getElementById('resultado').textContent = ''; // Limpiar resultado
+            document.getElementById('temporizador').textContent = tiempoRestante; // Mostrar tiempo restante
+
+            // Iniciar el temporizador
+            temporizador = setInterval(() => {
+                tiempoRestante--; // Reducir tiempo restante
+                document.getElementById('temporizador').textContent = tiempoRestante; // Actualizar temporizador
+
+                // Comprobar si el tiempo ha llegado a 0
+                if (tiempoRestante === 0) {
+                    clearInterval(temporizador); // Detener el temporizador
+                    if (!eleccionUsuario) {
+                        document.getElementById('resultado').textContent = '¡Tiempo agotado! No elegiste a tiempo.'; // Mensaje si no se elige
+                        document.getElementById('resultado').style.color = '#ff4500'; // Cambiar color del mensaje
+                    } else {
+                        jugar(); // Ejecutar el juego si se hizo una elección
+                    }
+                }
+            }, 1000); // Intervalo de 1 segundo
+        }
+
+        // Función para cuando el usuario hace su elección
+        function elegir(eleccion) {
+            if (!eleccionUsuario) { // Comprobar si no se ha hecho una elección
+                eleccionUsuario = eleccion; // Guardar la elección del usuario
+                clearInterval(temporizador); // Detener el temporizador si el usuario elige
+                jugar(); // Ejecutar el juego
+            }
+        }
+
+        // Función para jugar contra la computadora
+        function jugar() {
+            const eleccionComputadora = opciones[Math.floor(Math.random() * 3)]; // Elegir opción aleatoria para la computadora
+            let resultado = ''; // Variable para almacenar el resultado
+
+            // Comparar elecciones y determinar el resultado
+            if (eleccionUsuario === eleccionComputadora) {
+                resultado = "¡Empate! Ambos eligieron " + eleccionUsuario; // Mensaje de empate
+            } else if (
+                (eleccionUsuario === 'piedra' && eleccionComputadora === 'tijera') ||
+                (eleccionUsuario === 'papel' && eleccionComputadora === 'piedra') ||
+                (eleccionUsuario === 'tijera' && eleccionComputadora === 'papel')
+            ) {
+                resultado = "¡Ganaste! " + eleccionUsuario + " vence a " + eleccionComputadora; // Mensaje de victoria
+            } else {
+                resultado = "¡Perdiste! " + eleccionComputadora + " vence a " + eleccionUsuario; // Mensaje de derrota
+            }
+
+            // Mostrar resultado en la página
+            document.getElementById('resultado').textContent = resultado;
+            document.getElementById('resultado').style.color = (resultado.includes("Ganaste")) ? '#27ae60' : '#e74c3c'; // Cambiar color del texto según el resultado
+            eleccionUsuario = null; // Restablecer la elección del usuario
+            tiempoRestante = 5; // Reiniciar el temporizador
+            setTimeout(iniciarTemporizador, 2000); // Reiniciar el juego después de 2 segundos
+        }
+
+        // Iniciar el juego con el temporizador al cargar la ventana
+        window.onload = iniciarTemporizador;
+    </script>
+</body>
+</html>

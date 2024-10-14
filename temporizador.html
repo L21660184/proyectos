@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador Cuenta Regresiva con Semáforo</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: Arial, sans-serif; /* Fuente del texto */
+            background-color: #f0f8ff; /* Color de fondo */
+            display: flex; /* Utiliza flexbox para alinear los elementos */
+            flex-direction: column; /* Organiza los elementos en columnas */
+            align-items: center; /* Centra los elementos horizontalmente */
+            justify-content: center; /* Centra los elementos verticalmente */
+            height: 100vh; /* Altura completa de la ventana */
+            margin: 0; /* Sin margen */
+        }
+
+        /* Estilo del temporizador */
+        #temporizador {
+            position: relative; /* Posición relativa para el uso de pseudo-elementos */
+            width: 200px; /* Ancho del temporizador */
+            height: 200px; /* Alto del temporizador */
+            background-color: #3498db; /* Color de fondo del temporizador */
+            border-radius: 50%; /* Hace que el temporizador sea circular */
+            display: flex; /* Utiliza flexbox para alinear el contenido */
+            align-items: center; /* Centra verticalmente el contenido */
+            justify-content: center; /* Centra horizontalmente el contenido */
+        }
+
+        /* Capa blanca del temporizador */
+        #temporizador::before {
+            content: ""; /* Pseudo-elemento para el círculo interior */
+            position: absolute; /* Posición absoluta */
+            width: 180px; /* Ancho del círculo interior */
+            height: 180px; /* Alto del círculo interior */
+            background-color: white; /* Color de fondo del círculo interior */
+            border-radius: 50%; /* Hace que el círculo sea redondo */
+        }
+
+        /* Estilo del contador */
+        #contador {
+            position: absolute; /* Posición absoluta para superponerse */
+            font-size: 3em; /* Tamaño de la fuente del contador */
+            color: #2c3e50; /* Color del texto del contador */
+            font-weight: bold; /* Negrita */
+            z-index: 1; /* Asegura que el contador esté en la parte superior */
+        }
+
+        /* Estilo del botón de inicio */
+        #iniciarBtn {
+            padding: 15px 30px; /* Espaciado interno del botón */
+            font-size: 1.2em; /* Tamaño de la fuente del botón */
+            color: white; /* Color del texto del botón */
+            background-color: #3498db; /* Color de fondo del botón */
+            border: none; /* Sin borde */
+            border-radius: 8px; /* Esquinas redondeadas */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            margin-top: 20px; /* Espaciado superior del botón */
+            transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves para efectos */
+        }
+
+        /* Efecto al pasar el mouse sobre el botón */
+        #iniciarBtn:hover {
+            background-color: #2980b9; /* Cambia el color al pasar el mouse */
+            transform: scale(1.05); /* Escala el botón */
+        }
+
+        /* Estilo cuando el botón está deshabilitado */
+        #iniciarBtn:disabled {
+            background-color: #bdc3c7; /* Color de fondo del botón deshabilitado */
+            cursor: not-allowed; /* Cambia el cursor para indicar que no está disponible */
+        }
+
+        /* Estilo del mensaje */
+        #mensaje {
+            font-size: 1.5em; /* Tamaño de la fuente del mensaje */
+            color: #e74c3c; /* Color del texto del mensaje */
+            margin-top: 20px; /* Espaciado superior del mensaje */
+        }
+
+        /* Animación del círculo de temporizador */
+        @keyframes consumir {
+            0% { background: conic-gradient(green 0%, green 100%); } /* Inicio verde */
+            33% { background: conic-gradient(green 0%, yellow 33%, yellow 100%); } /* Cambia a amarillo */
+            66% { background: conic-gradient(yellow 0%, red 66%, red 100%); } /* Cambia a rojo */
+            100% { background: conic-gradient(red 0%, red 100%); } /* Final rojo */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor principal del temporizador -->
+    <div id="temporizador">
+        <div id="contador">50</div> <!-- Contador inicial en 50 -->
+    </div>
+    
+    <button id="iniciarBtn">Iniciar Cuenta Regresiva</button> <!-- Botón para iniciar la cuenta regresiva -->
+    <div id="mensaje"></div> <!-- Contenedor para mostrar el mensaje de tiempo terminado -->
+
+    <script>
+        let contador = 50; // Variable para el tiempo restante
+        let intervalo; // Variable para almacenar el intervalo de la cuenta regresiva
+        const contadorElemento = document.getElementById('contador'); // Elemento del contador en el DOM
+        const botonIniciar = document.getElementById('iniciarBtn'); // Elemento del botón en el DOM
+        const mensajeElemento = document.getElementById('mensaje'); // Elemento del mensaje en el DOM
+        const temporizador = document.getElementById('temporizador'); // Elemento del temporizador en el DOM
+
+        // Función para actualizar el temporizador visualmente
+        function actualizarTemporizador() {
+            // Establece el color de fondo del temporizador basado en el tiempo restante
+            if (contador > 33) {
+                temporizador.style.background = `conic-gradient(green ${((50 - contador) / 50) * 360}deg, white 0deg)`; // Fondo verde
+            } else if (contador > 16) {
+                temporizador.style.background = `conic-gradient(yellow ${((50 - contador) / 50) * 360}deg, white 0deg)`; // Fondo amarillo
+            } else {
+                temporizador.style.background = `conic-gradient(red ${((50 - contador) / 50) * 360}deg, white 0deg)`; // Fondo rojo
+            }
+        }
+
+        // Función para realizar la cuenta regresiva
+        function cuentaRegresiva() {
+            if (contador > 0) {
+                contadorElemento.innerText = contador; // Actualiza el contador visual
+                actualizarTemporizador(); // Llama a la función para actualizar el fondo
+                contador--; // Decrementa el contador
+            } else {
+                clearInterval(intervalo); // Detiene la cuenta regresiva
+                contadorElemento.innerText = "0"; // Muestra 0 en el contador
+                mensajeElemento.innerText = "¡Tiempo terminado!"; // Muestra mensaje de finalización
+                botonIniciar.disabled = false; // Habilita el botón nuevamente
+            }
+        }
+
+        // Evento para iniciar la cuenta regresiva al hacer clic en el botón
+        botonIniciar.addEventListener('click', function() {
+            // Reinicia el contador, el mensaje y el diseño del temporizador
+            contador = 50; // Reinicia el contador a 50
+            mensajeElemento.innerText = ""; // Limpia el mensaje
+            contadorElemento.innerText = contador; // Muestra el contador reiniciado
+            temporizador.style.background = "conic-gradient(green 0deg, white 0deg)"; // Resetea el fondo
+
+            // Desactiva el botón mientras la cuenta regresiva está activa
+            botonIniciar.disabled = true; // Desactiva el botón
+
+            // Inicia la cuenta regresiva
+            intervalo = setInterval(cuentaRegresiva, 1000); // Ejecuta la función cada segundo
+        });
+    </script>
+</body>
+</html>
+

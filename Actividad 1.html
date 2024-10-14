@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Define el conjunto de caracteres y la configuración de la vista para dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Mensaje con ID</title>
+    
+    <style>
+        /* Estilos para el cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente del texto */
+            background-color: #f5f5f5; /* Color de fondo */
+            margin: 0; /* Sin márgenes */
+            padding: 0; /* Sin padding */
+            display: flex; /* Utiliza flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura de la ventana del navegador */
+            color: #333; /* Color del texto */
+        }
+
+        /* Estilos para el elemento con ID "soyelid" */
+        #soyelid {
+            font-size: 2rem; /* Tamaño de la fuente */
+            color: #ff6347; /* Color del texto */
+            background-color: #fff; /* Color de fondo del elemento */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Sombra del elemento */
+            transition: all 0.3s ease; /* Transiciones suaves para los efectos */
+            text-align: center; /* Alineación del texto al centro */
+        }
+
+        /* Efecto hover en el elemento con ID "soyelid" */
+        #soyelid:hover {
+            background-color: #ff6347; /* Cambia el color de fondo al pasar el mouse */
+            color: #fff; /* Cambia el color del texto al pasar el mouse */
+            transform: scale(1.05); /* Aumenta ligeramente el tamaño del elemento */
+        }
+    </style>
+    
+    <script>
+        // Función que se ejecuta cuando la ventana se carga
+        window.onload = function() {
+            // Cambia el contenido del elemento con ID "soyelid"
+            document.getElementById("soyelid").innerHTML = "No me gusta la programación";
+        };
+    </script>
+</head>
+<body>
+    <!-- Párrafo que contiene el mensaje dinámico -->
+    <p id="soyelid"></p>
+</body>
+</html>

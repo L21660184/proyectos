@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Define el conjunto de caracteres y la configuración de la vista para dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Contador</title>
+    
+    <style>
+        /* Estilos para el cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente del texto */
+            background-color: #f0f4f8; /* Color de fondo */
+            margin: 0; /* Sin márgenes */
+            padding: 0; /* Sin padding */
+            display: flex; /* Utiliza flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura de la ventana del navegador */
+            flex-direction: column; /* Coloca los elementos en columna */
+        }
+
+        /* Estilos para el encabezado h1 */
+        h1 {
+            color: #333; /* Color del texto */
+            font-size: 2.5rem; /* Tamaño de la fuente */
+            margin-bottom: 30px; /* Espaciado inferior */
+        }
+
+        /* Estilos para el contador */
+        .contador {
+            font-size: 4rem; /* Tamaño de la fuente */
+            font-weight: bold; /* Negrita */
+            color: #007bff; /* Color del texto */
+            background-color: #fff; /* Color de fondo */
+            padding: 20px 40px; /* Espaciado interno */
+            border-radius: 20px; /* Bordes redondeados */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Sombra del contador */
+            margin-bottom: 20px; /* Espaciado inferior */
+            transition: transform 0.2s ease; /* Transición suave para la animación */
+        }
+
+        /* Estilos para los botones */
+        .botones {
+            display: flex; /* Utiliza flexbox para organizar los botones */
+            gap: 20px; /* Espaciado entre los botones */
+        }
+
+        /* Estilos para los botones individuales */
+        button {
+            padding: 15px 30px; /* Espaciado interno */
+            font-size: 1.2rem; /* Tamaño de la fuente */
+            font-weight: bold; /* Negrita */
+            color: #fff; /* Color del texto */
+            background-color: #007bff; /* Color de fondo del botón */
+            border: none; /* Sin bordes */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra del botón */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves para los efectos */
+        }
+
+        /* Efecto hover en los botones */
+        button:hover {
+            background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+            transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+        }
+
+        /* Efecto al hacer clic en el botón */
+        button:active {
+            transform: scale(1); /* Devuelve el tamaño original al hacer clic */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Contador</h1>
+    <!-- Div que muestra el valor del contador -->
+    <div class="contador" id="contador">0</div>
+
+    <div class="botones">
+        <!-- Botones para incrementar y disminuir el contador -->
+        <button id="paArriba" onclick="incrementar()">Pa arriba</button>
+        <button id="paAbajo" onclick="disminuir()">Pa abajo</button>
+    </div>
+
+    <script>
+        // Inicializamos el contador
+        var contador = 0;
+
+        // Función para aumentar el contador
+        function incrementar() {
+            contador++; // Aumenta el valor del contador
+            document.getElementById("contador").textContent = contador; // Actualiza el texto del contador en la interfaz
+            animarContador(); // Llama a la función para animar el contador
+        }
+
+        // Función para disminuir el contador
+        function disminuir() {
+            contador--; // Disminuye el valor del contador
+            document.getElementById("contador").textContent = contador; // Actualiza el texto del contador en la interfaz
+            animarContador(); // Llama a la función para animar el contador
+        }
+
+        // Función para animar el contador
+        function animarContador() {
+            const contadorDiv = document.getElementById("contador"); // Obtiene el elemento del contador
+            contadorDiv.style.transform = "scale(1.2)"; // Aumenta el tamaño del contador temporalmente
+            setTimeout(() => {
+                contadorDiv.style.transform = "scale(1)"; // Restaura el tamaño original después de 200 ms
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Define el conjunto de caracteres y la configuración de la vista para dispositivos móviles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título de la página que aparecerá en la pestaña del navegador -->
+    <title>Cambiar color de fondo</title>
+    
+    <style>
+        /* Estilos para el cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente del texto */
+            margin: 0; /* Sin márgenes */
+            padding: 0; /* Sin padding */
+            display: flex; /* Utiliza flexbox para centrar el contenido */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura de la ventana del navegador */
+            background-color: #f0f0f0; /* Color de fondo inicial */
+            transition: background-color 0.5s ease; /* Transición suave para el color de fondo */
+        }
+
+        /* Estilos para el encabezado h1 */
+        h1 {
+            color: #333; /* Color del texto */
+            font-size: 2.5rem; /* Tamaño de la fuente */
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+
+        /* Estilos para el botón */
+        button {
+            padding: 15px 30px; /* Espaciado interno */
+            font-size: 1.5rem; /* Tamaño de la fuente */
+            color: #fff; /* Color del texto */
+            background-color: #007BFF; /* Color de fondo del botón */
+            border: none; /* Sin bordes */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves para los efectos */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Sombra del botón */
+        }
+
+        /* Efecto hover en el botón */
+        button:hover {
+            background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+            transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+        }
+
+        /* Efecto al hacer clic en el botón */
+        button:active {
+            transform: scale(1); /* Devuelve el tamaño original al hacer clic */
+        }
+    </style>
+    
+    <script>
+        // Función que genera un color aleatorio en formato hexadecimal
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF'; // Caracteres permitidos en colores hexadecimales
+            let color = '#'; // Inicia el color con un signo de número
+            for (let i = 0; i < 6; i++) { // Genera 6 caracteres para el color
+                color += letters[Math.floor(Math.random() * 16)]; // Selecciona un carácter aleatorio
+            }
+            return color; // Devuelve el color generado
+        }
+
+        // Función que cambia el color de fondo del cuerpo de la página
+        function changeBackgroundColor() {
+            document.body.style.backgroundColor = getRandomColor(); // Asigna un color aleatorio como fondo
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <!-- Encabezado que instruye al usuario -->
+        <h1>Haz clic para cambiar el color de fondo</h1>
+        <!-- Botón que ejecuta la función para cambiar el color de fondo al hacer clic -->
+        <button onclick="changeBackgroundColor()">Cambiar color de fondo</button>
+    </div>
+</body>
+</html>
